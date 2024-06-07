@@ -1,0 +1,97 @@
+{% extends 'core/base.html' %}
+{% load bootstrap3 %}
+
+{% block title %}
+	{% bootstrap_icon 'list-alt' %} Memórias
+{% endblock %}
+
+{% block content %}
+	<div class="panel panel-default">
+		<div class="panel-body">
+		<form class="form">
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-4 col-lg-2">
+					{% bootstrap_field form.data  %}
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-4 col-lg-2">
+					{% bootstrap_field form.curso  %}
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+					{% bootstrap_field form.conteudo %}
+				</div>
+				
+				<div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
+					<br>
+					<button type="submit" class="btn btn-success btn-lg"  style="width: 100%;">{% bootstrap_icon 'search' %} Buscar</button>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
+					<br>
+					<a href="{% url 'ata_create' %}" class="btn btn-lg btn-primary">{% bootstrap_icon 'floppy-disk' %} Cadastrar Memória</a>
+				</div>
+			</div>
+		</form>
+		</div>
+	</div>
+
+	<table class="table table-hover">
+  		<thead>
+			<th>Código</th>
+			<th>Data</th>
+			<th>Hora</th>
+			<th>Local</th>
+			<th>Pauta</th>
+			<th class="text-center">Arquivo Anexo</th>
+			<th class="text-center">Visualizar</th>
+  			<th class="text-center">Editar</th>
+  			<th class="text-center">Excluir</th>
+  		</thead>
+
+  		<tbody>
+			{% for ata in object_list %}
+					<tr>
+						<td>{{ ata.codigo }} </td>
+						<td>{{ ata.data|date:'d/m/Y' }}</td>
+						<td>{{ ata.hora }}</td>
+						<td>{{ ata.local }}</td>
+						<td>{{ ata.pauta }}</td>
+						<td class="text-center">
+							<span  data-toggle="tooltip"  title='Arquivo Anexo da Ata'>
+								{% if ata.arquivo_anexo1 %}
+									<a href="{{ ata.arquivo_anexo1.url }}" target="_blank" class="btn btn-sm btn-success">
+										{% bootstrap_icon 'download' %}
+									</a>
+								{% else %}
+									<a href="" target="_blank" class="btn btn-sm btn-warning disabled">
+										{% bootstrap_icon 'download' %}
+									</a>
+								{% endif %}
+							</span>
+						</td>
+						<td class="text-center"> 
+							<span  data-toggle="tooltip"  title='Visualizar ata'>
+								{% if ata.texto %}
+									<a href="{{ ata.get_visualiza_url }}"  class="btn btn-sm btn-success">
+										{% bootstrap_icon 'eye-open' %}
+									</a>
+								{% else %}
+									<a href="" target="_blank" class="btn btn-sm btn-warning disabled">
+										{% bootstrap_icon 'eye-open' %}
+									</a>
+								{% endif %}
+							</span>
+						</td>
+						<td class="text-center">
+							<span  data-toggle="tooltip"  title='Editar'>
+							{% bootstrap_button content='' href=ata.get_absolute_url button_type='link' icon='edit' button_class='btn btn-primary' size='sm' %}
+							</span>
+						</td>
+						<td class="text-center">
+							<span  data-toggle="tooltip"  title='Excluir'>
+							{% bootstrap_button content='' href=ata.get_delete_url button_type='link' icon='trash' button_class='btn btn-danger' size='sm' %}
+							</span>
+						</td>
+					</tr>
+			{% endfor %}
+  		</tbody>
+	</table>
+{% endblock %}

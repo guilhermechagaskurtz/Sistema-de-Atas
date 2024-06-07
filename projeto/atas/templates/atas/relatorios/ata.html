@@ -1,0 +1,57 @@
+{% extends 'core/relatorios/base.html' %}
+
+{% block content %}
+
+<table>
+    <tr>
+        <td><b>Data e hora:</b> {{ object.data|date:'d/m/Y' }} às {{ object.hora }} h</td>
+        <td><b>Local:</b>{{ object.local }}</td>
+        <td>
+            <b>Redator:</b> {{ object.redator.nome}}
+        </td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td><b>Pauta:</b> {{ object.pauta }}</td> 
+    </tr>
+    <tr>
+        <td></td>
+    </tr>
+    <tr>
+        <td><b>Outros membros do {{ object.curso }}:</b> 
+            {% for c in object.integrantes.all %}
+                {{ c.nome }}
+                {% if forloop.last %}
+                    .
+                {% else %}
+                    ,
+                {% endif %}
+            {% empty %}
+                Não informado
+            {% endfor %}
+        </td>
+    </tr>
+</table>
+<hr>
+<h1 align="center">Memória {{ object.codigo }} do {{ object.curso }} </h1>
+<table >
+    <tr>
+        <td style="text-align: justify; font-family:'Courier New', Courier, monospace" width='4%'>
+            {% for linha in object.get_linhas_texto %}
+                {{forloop.counter}}. <br>
+            {% endfor %}
+        </td>
+        <td style="text-align: justify; font-family:'Courier New', Courier, monospace">
+            {{ object.texto|linebreaks }}
+        </td>
+    </tr>
+</table>
+<!-- 
+<p style="text-align: justify; font-family:'Courier New', Courier, monospace">
+    {% for linha in object.get_linhas_texto %}
+        {{forloop.counter}}.
+        {{ linha }}<br>
+    {% endfor %}
+</p> -->
+{% endblock %}

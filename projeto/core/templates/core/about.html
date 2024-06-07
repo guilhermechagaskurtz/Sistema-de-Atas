@@ -1,0 +1,41 @@
+{% extends 'core/base.html' %}
+{% load bootstrap3 %}
+{% load static %}
+
+{% block title %}
+	{% bootstrap_icon 'question-sign' %} Sobre
+{% endblock %}
+
+
+{% block content %}
+	<center>
+	<!-- <img src="{% static 'core/img/logoLasimon.png' %}"
+         class="img-responsive"> -->
+    </center>
+
+	<h3>Ambiente de registro de memórias de eventos e/ou atividades do Laboratório de Práticas Computação</h3>
+
+	<h4>Versões:</h4>
+	<ul>
+		<li>1.0 de Setembro de 2020</li>
+		<li>1.1 de Setembro de 2021</li>
+		<li>1.2 de Setembro de 2022</li>	
+	</ul>
+	<h4>
+		Colaboradores: Professores UFN Computação
+	</h4>
+	<ul> 
+		<li>Alexandre Zamberlan - responsável técnico do sistema</li>
+		<li>Guilherme Chagas Kurtz</li>
+		<li>Reiner F. Perozzo - in memorian</li>
+		<li>Ricardo Frolhlich da Silva - Coordenador do curso de Jogos Digitais</li>
+		<li>Sylvio André Garcia Vieira - Coordenador do Laboratório de Práticas</li>
+	</ul>
+	<h4>
+		Consultoria:
+	</h4>
+		<ul> 
+			<li><a href="http://site.ersistemas.info/" target="_blank"> Empresa ER Sistemas</a> - Robertson Ebling dos Santos (egresso do curso de Sistemas de Informação)</li>
+		</ul>
+	
+{% endblock %}
